@@ -1,37 +1,40 @@
 
 <div>PORTFOLIO section</div>
+<section class="portfolio">
+	<?php
 
-<?php global $business; 
+	if(have_posts()): if(get_posts(array('post_type' => 'portfolio'))){ ?>
 
-if(have_posts()):
+	<!-- PORTFOLIO -->
+				<div class="portfolioContainer clearfix">
 
-if(get_posts(array('post_type' => 'portfolio'))){ ?>
+				<?php query_posts('post_type=portfolio'); ?>
 
-<!-- PORTFOLIO -->
-		<section class="section-portfolio clearfix" id="portfolio">			
-		
-			<div class="portfolioContainer clearfix">
+				<?php while(have_posts()):the_post(); ?>				
 
-			<?php query_posts('post_type=portfolio'); ?>
+					<div class="h-product col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="image">
+							<a href="<?php the_permalink(); ?>" class="u-url">
+								<?php the_post_thumbnail(); ?>
+							</a>
+						</div>
+						<div class="project-info">
+							<h2>
+								<?php the_title(); ?>
+							</h2>
+							<p>
+								<?php the_content(); ?>
+							</p>
 
-			<?php while(have_posts()):the_post(); ?>				
+						</div>
+					</div>
 
-				<div class="h-product col-sm-6 col-md-4 col-lg-3">
+					<?php endwhile; ?>
+
+					<?php wp_reset_query(); ?>				
 					
-					<a href="<?php the_permalink(); ?>" class="u-url">
-						<?php the_post_thumbnail(); ?>
-					</a>
 				</div>
 
-				<?php endwhile; ?>
-
-				<?php wp_reset_query(); ?>				
-				
-			</div>
-
-		</section>
-		<!-- END PORTFOLIO -->
-
-<?php } ?>
-
-<?php endif; ?>
+		<?php } ?>
+	<?php endif; ?>
+</section>
